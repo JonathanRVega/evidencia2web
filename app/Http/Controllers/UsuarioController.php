@@ -14,7 +14,8 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        //
+        $usuarios = Usuario::all();
+        return view('dashboard', compact('usuarios'));
     }
 
     /**
@@ -35,7 +36,15 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|string',
+            'numeroCliente' => 'required|numeric',
+            'datosFiscales' => 'required|string',
+            // Add other validation rules if needed
+        ]);
+
+        Usuario::create($request->all());
+        return redirect()->route('dashboard')->with('success', 'Usuario created successfully!');
     }
 
     /**
@@ -57,7 +66,7 @@ class UsuarioController extends Controller
      */
     public function edit(Usuario $usuario)
     {
-        //
+        return view('edit-usuario', compact('usuario'));
     }
 
     /**
@@ -69,7 +78,14 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, Usuario $usuario)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|string',
+            'numeroCliente' => 'required|numeric',
+            // Add other validation rules if needed
+        ]);
+
+        $usuario->update($request->all());
+        return redirect()->route('dashboard')->with('success', 'Usuario updated successfully!');
     }
 
     /**

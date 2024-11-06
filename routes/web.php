@@ -18,6 +18,10 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 
+Route::post('/usuarios', [App\Http\Controllers\UsuarioController::class, 'store'])->name('usuarios.store');
+Route::get('/usuarios/{usuario}/edit', [App\Http\Controllers\UsuarioController::class, 'edit'])->name('usuarios.edit');
+Route::put('/usuarios/{usuario}', [App\Http\Controllers\UsuarioController::class, 'update'])->name('usuarios.update');
+
 Route::get('/', function () {
     $orden = Orden::find(1);
     return view('landingpage', compact('orden'));
